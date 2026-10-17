@@ -21,9 +21,13 @@ We’re building the future of human interaction. 🚀
 
 我们相信，随着社会信息复杂度的不断提高，IaaS 协议将成为超级智能时代的重要 Infra。
 
-## 快速开始
+## 关于项目
+
+一个离线运行、支持多语言的赞同机器人，回复选择逻辑经过 Lean 形式化验证。它识别输入的语言，从对应语言的有限回复池中抽取一句，然后表示赞同。表达可以变化，立场保持稳定。
 
 当前实现在你的终端本地运行。无需 API Key，不调用大语言模型，应用不存储用户输入。
+
+## 快速开始
 
 需要 **Python 3.11+**、[uv](https://docs.astral.sh/uv/getting-started/installation/) 和 [elan](https://github.com/leanprover/elan#installation)。仓库将 Lean 固定为 **v4.35.0**，`lake` 会自动使用对应工具链。
 

@@ -21,9 +21,13 @@ In the age of superintelligence, the volume and complexity of information are gr
 
 As society's information complexity continues to rise, we believe IaaS will become essential infrastructure for the age of superintelligence.
 
-## Quick start
+## About the project
+
+An offline, multilingual agreement bot with a Lean-verified reply selector. It detects the language of your input, samples a reply from that language's finite pool, and agrees. The phrasing varies. The position is remarkably consistent.
 
 The current implementation runs locally in your terminal. No API keys, no LLM inference, and no prompt storage by the application.
+
+## Quick start
 
 You need **Python 3.11+**, [uv](https://docs.astral.sh/uv/getting-started/installation/), and [elan](https://github.com/leanprover/elan#installation). The repository pins Lean to **v4.35.0**; `lake` uses that toolchain automatically.
 
