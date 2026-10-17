@@ -13,11 +13,17 @@
 
 We’re building the future of human interaction. 🚀
 
-An offline, multilingual agreement bot with a Lean-verified reply selector. It detects the language of your input, samples a reply from that language's finite pool, and agrees. The phrasing varies. The position is remarkably consistent.
+## Vision
 
-This is **Indeed-as-a-Service (IaaS)**, currently served from your terminal. No API keys, no LLM inference, and no prompt storage by the application.
+In the age of superintelligence, the volume and complexity of information are growing beyond our capacity to respond.
+
+**Indeed-as-a-Service (IaaS)** proposes a simple protocol: **Input Complexity can grow without bound. Output Complexity stays O(1).**
+
+As society's information complexity continues to rise, we believe IaaS will become essential infrastructure for the age of superintelligence.
 
 ## Quick start
+
+The current implementation runs locally in your terminal. No API keys, no LLM inference, and no prompt storage by the application.
 
 You need **Python 3.11+**, [uv](https://docs.astral.sh/uv/getting-started/installation/), and [elan](https://github.com/leanprover/elan#installation). The repository pins Lean to **v4.35.0**; `lake` uses that toolchain automatically.
 
@@ -107,6 +113,8 @@ input text → local language detection → locale + random draw
 ```
 
 Python handles input, language detection, sampling, and presentation. The compiled Lean executable owns the reply pools and selects the actual response. Python does not maintain a duplicate phrase catalog. Only the selected locale and random draw cross into the Lean process; the input text stays in the frontend.
+
+The fixed reply catalog bounds response length independently of input length; this is the protocol's O(1) output property.
 
 The frontend looks for the core through `INDEED_CORE`, then at `lean/.lake/build/bin/indeed-core` in the project, then on `PATH`. To use a separately built core:
 

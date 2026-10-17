@@ -13,11 +13,17 @@
 
 We’re building the future of human interaction. 🚀
 
-一个离线运行、支持多语言的赞同机器人，回复选择逻辑经过 Lean 形式化验证。它识别输入的语言，从对应语言的有限回复池中抽取一句，然后表示赞同。表达可以变化，立场保持稳定。
+## 愿景
 
-这就是 **Indeed-as-a-Service（IaaS）**，目前通过你的终端提供服务。无需 API Key，不调用大语言模型，应用不存储用户输入。
+在超级智能时代，信息量与信息复杂度不断增长，逐渐超出人类回应的能力。
+
+**Indeed-as-a-Service（IaaS）** 提出一个简单的协议：**Input Complexity 可以无限增长，但 Output Complexity 始终保持 O(1)。**
+
+我们相信，随着社会信息复杂度的不断提高，IaaS 协议将成为超级智能时代的重要 Infra。
 
 ## 快速开始
+
+当前实现在你的终端本地运行。无需 API Key，不调用大语言模型，应用不存储用户输入。
 
 需要 **Python 3.11+**、[uv](https://docs.astral.sh/uv/getting-started/installation/) 和 [elan](https://github.com/leanprover/elan#installation)。仓库将 Lean 固定为 **v4.35.0**，`lake` 会自动使用对应工具链。
 
@@ -107,6 +113,8 @@ print(bot.reply("这个方案值得一试。", language="zh").text)
 ```
 
 Python 负责输入、语言检测、随机采样和输出。回复池以及实际的回复选择由编译后的 Lean 可执行文件负责，Python 不维护另一份回复文本。传给 Lean 进程的只有语言代码和随机数，用户输入留在前端。
+
+固定回复池使回复长度不随输入长度增长，这就是协议所指的 O(1) 输出。
 
 前端依次通过环境变量 `INDEED_CORE`、项目中的 `lean/.lake/build/bin/indeed-core` 和 `PATH` 查找核心程序。也可以指定单独构建的可执行文件：
 
