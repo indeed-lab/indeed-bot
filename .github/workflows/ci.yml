@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Lean + Python ${{ matrix.python }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ['3.11', '3.13']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Set up uv
+        uses: astral-sh/setup-uv@1c37ad07a6a961277cf70c0d37d6f313000f5884 # v10.3.0
+        with:
+          version: '0.11.15'
+          python-version: ${{ matrix.python }}
+          enable-cache: true
+      - name: Install elan
+        run: |
+          curl --proto '=https' --tlsv1.2 -sSfL \
+            https://raw.githubusercontent.com/leanprover/elan/227caca133724d5516bee25c2aeb3e609478f2d8/elan-init.sh \
+            -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Build the verified runtime
+        working-directory: lean
+        run: lake build
+      - name: Audit proof dependencies
+        run: uv run --no-project --python '${{ matrix.python }}' python scripts/check_axioms.py
+      - name: Install Python dependencies
+        run: uv sync --frozen --extra dev
+      - name: Run application and integration tests
+        run: uv run pytest
+      - name: Exercise the public CLI
+        run: |
+          uv run indeed --lang zh --seed 7 '这个想法值得试一试。'
+          uv run indeed --json 'This approach makes a lot of sense.'
+          printf 'Les tests sont importants pour notre projet.\n' | uv run indeed --json

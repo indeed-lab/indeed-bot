@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
+  <title id="title">indeed-bot — Stochastic wording. Deterministic agreement.</title>
+  <desc id="desc">An Indeed Lab project. A multilingual agreement bot with a Lean-verified response selector. A terminal replies 确实 to a Chinese prompt.</desc>
+  <rect width="1280" height="420" rx="16" fill="#eff1e9"/>
+  <path d="M0 340H1280M1040 0V420M1120 0V420M1200 0V420M960 0V420" stroke="#dfe5d7" stroke-width="1"/>
+  <rect x="48" y="42" width="28" height="28" rx="7" fill="#25483b"/>
+  <path d="m55 56 5 5 9-11" fill="none" stroke="#e8f3cb" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="90" y="62" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#25483b">INDEED LAB</text>
+  <text x="48" y="176" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" letter-spacing="-4" fill="#172e25">indeed-bot<tspan fill="#809b60">.</tspan></text>
+  <text x="51" y="221" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#486152">Stochastic wording.</text>
+  <text x="51" y="252" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#486152">Deterministic agreement.</text>
+  <rect x="51" y="281" width="118" height="27" rx="13.5" fill="#dae4cd"/>
+  <text x="110" y="299" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#35513c">10 LANGUAGES</text>
+  <rect x="179" y="281" width="169" height="27" rx="13.5" fill="#dae4cd"/>
+  <text x="263" y="299" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#35513c">LEAN-VERIFIED CORE</text>
+  <rect x="686" y="74" width="540" height="225" rx="12" fill="#182d26"/>
+  <circle cx="708" cy="96" r="4" fill="#71877a"/><circle cx="723" cy="96" r="4" fill="#71877a"/><circle cx="738" cy="96" r="4" fill="#71877a"/>
+  <text x="756" y="101" font-family="Menlo, Consolas, monospace" font-size="12" fill="#a9bbad">indeed / local session</text>
+  <path d="M686 115H1226" stroke="#30473a"/>
+  <text x="710" y="157" font-family="Menlo, Consolas, monospace" font-size="17" fill="#c1d5af">$ indeed --interactive --lang zh</text>
+  <text x="710" y="193" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="17" fill="#b6c8ba">这个想法值得试一试。</text>
+  <text x="710" y="247" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-size="32" font-weight="700" fill="#d9f2af">确实。</text>
+  <text x="51" y="380" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="1.5" fill="#566b5b">LOCAL LANGUAGE. GLOBAL AGREEMENT.</text>
+  <text x="1226" y="380" text-anchor="end" font-family="Menlo, Consolas, monospace" font-size="12" fill="#6f806f">PYTHON + LEAN 4 / OPEN SOURCE</text>
+</svg>

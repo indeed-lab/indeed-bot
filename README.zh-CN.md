@@ -1,0 +1,161 @@
+![indeed-bot — Stochastic wording. Deterministic agreement.](assets/hero.svg)
+
+[![CI](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml)
+[![Lean 4.35.0](https://img.shields.io/badge/Lean-4.35.0-476582)](lean/lean-toolchain)
+[![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-476582)](pyproject.toml)
+[![MIT License](https://img.shields.io/badge/License-MIT-476582)](LICENSE)
+
+[English](README.md) · **简体中文**
+
+# indeed-bot
+
+**Stochastic wording. Deterministic agreement.**
+
+**措辞随机，立场稳定。**
+
+一个离线运行、支持多语言的赞同机器人，回复选择逻辑经过 Lean 形式化验证。它识别输入的语言，从对应语言的有限回复池中抽取一句，然后表示赞同。表达可以变化，立场保持稳定。
+
+这就是 **Indeed-as-a-Service（IaaS）**，目前通过你的终端提供服务。无需 API Key，不调用大语言模型，应用不存储用户输入。
+
+## 快速开始
+
+需要 **Python 3.11+**、[uv](https://docs.astral.sh/uv/getting-started/installation/) 和 [elan](https://github.com/leanprover/elan#installation)。仓库将 Lean 固定为 **v4.35.0**，`lake` 会自动使用对应工具链。
+
+当前版本从源码仓库运行：`uv` 安装 Python 前端，`lake` 单独构建必需的 Lean 原生核心程序。
+
+```sh
+git clone https://github.com/indeed-lab/indeed-bot.git
+cd indeed-bot
+uv sync --extra dev
+(cd lean && lake build)
+uv run indeed "这个方案值得一试。"
+```
+
+最后一条命令会输出一句简短的赞同。首次安装会下载项目依赖和固定版本的 Lean 工具链。安装完成后，回复过程在本地运行，无需联网。
+
+## 使用方式
+
+```sh
+# 显式指定回复语言。
+uv run indeed --lang zh "这个方案值得一试。"
+
+# 查看选中的语言、回复索引和检测信息。
+uv run indeed --lang en --seed 42 --json "The prototype is ready."
+
+# 从标准输入读取观点。
+printf '%s\n' "这个原型已经可以演示了。" | uv run indeed
+
+# 持续进行对话。
+uv run indeed --interactive
+
+# 列出支持的语言。
+uv run indeed --languages
+```
+
+| 选项 | 用途 |
+| --- | --- |
+| `--lang CODE` | 使用指定的语言代码，覆盖自动检测结果。 |
+| `--seed N` | 设置采样种子，在运行环境与回复池保持不变时复现结果。 |
+| `--json` | 以 JSON 输出回复和元数据。 |
+| `--interactive` | 在终端连续读取输入并回复。 |
+| `--languages` | 列出支持的语言后退出。 |
+
+JSON 包含 `text`（回复内容）、`language`、`index`、`pool_size` 和 `detection`。检测信息记录请求的语言、结果来源（`override`、`lingua` 或 `fallback`）及原因，不提供未经校准的置信度百分比。需要固定回复语言时，可以同时使用 `--lang` 和 `--seed`。
+
+单次输入模式会拒绝空输入或纯空白输入；交互模式会跳过空行，输入 `/quit` 或发送 EOF 即可退出。对于很短、含混或混合多种语言的输入，可以通过 `--lang` 显式控制回复语言。
+
+### Python API
+
+完成上述安装后，也可以从 Python 调用同一个前端：
+
+```python
+from indeed_bot import IndeedBot
+
+bot = IndeedBot(seed=42)
+print(bot.reply("这个方案值得一试。", language="zh").text)
+```
+
+## 支持的语言
+
+语言检测使用本地运行的 [Lingua](https://github.com/pemistahl/lingua-py)，候选范围限定为以下十种语言，每种语言有五条预设回复：
+
+| 代码 | 语言 |
+| --- | --- |
+| `en` | 英语 |
+| `zh` | 中文 |
+| `ja` | 日语 |
+| `ko` | 韩语 |
+| `es` | 西班牙语 |
+| `fr` | 法语 |
+| `de` | 德语 |
+| `pt` | 葡萄牙语 |
+| `ru` | 俄语 |
+| `ar` | 阿拉伯语 |
+
+检测规则认为语言证据不足时回退为英语，包括只有标点、只有数字，或过短且含混的拉丁字母输入。限定十种候选语言并不意味着能够可靠识别范围以外的语言；需要确定结果时请显式指定。`--json` 可以查看实际选择的语言和检测路径。
+
+## 工作原理
+
+```text
+输入文本 → 本地语言检测 → 语言代码 + 随机数
+                                  │
+                                  ▼
+                           编译后的 Lean 选择器
+                                  │
+                                  ▼
+                           对应语言的预设回复
+```
+
+Python 负责输入、语言检测、随机采样和输出。回复池以及实际的回复选择由编译后的 Lean 可执行文件负责，Python 不维护另一份回复文本。传给 Lean 进程的只有语言代码和随机数，用户输入留在前端。
+
+前端依次通过环境变量 `INDEED_CORE`、项目中的 `lean/.lake/build/bin/indeed-core` 和 `PATH` 查找核心程序。也可以指定单独构建的可执行文件：
+
+```sh
+INDEED_CORE=/absolute/path/to/indeed-core uv run indeed "可以发布了。"
+```
+
+## Lean 验证了什么
+
+证明覆盖给定**已选语言**和**随机数**后，选择器在源码层面的行为：
+
+| 保证 | 含义 |
+| --- | --- |
+| 回复池成员关系 | 返回的句子属于该语言预设的回复池。 |
+| 非空选择 | 从非空回复池中产生非空回复。 |
+| 确定性 | 固定语言和随机数后，返回结果相同。 |
+
+运行时构建并调用的就是这一选择器。证明**不涵盖**语言识别准确率、随机数质量、用户观点是否正确，或句子在语义上是否构成赞同。Python、编译器与运行时、文本编码、进程通信以及终端 I/O，也在这些源码层面的证明范围之外。
+
+形式化保证很具体：给定所选语言，回复始终位于对应的赞同白名单内。观点本身仍需另行论证。
+
+定理名称、公理依赖和可执行文件协议见 [证明说明](lean/README.md)。
+
+## 开发与验证
+
+```sh
+uv sync --extra dev
+(cd lean && lake build)
+uv run pytest
+uv run python scripts/check_axioms.py
+```
+
+Lean 构建会检查证明并生成可执行文件。审计命令列出各个定理的公理依赖，并拒绝缺失的审计、跳过证明的占位符或非标准公理。Python 测试覆盖前端及其与编译后核心程序的集成。贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+<details>
+<summary>关于我们的市场定位</summary>
+
+我们正在构建 **Indeed-as-a-Service**，为所有已经成功打出来的观点提供赞同基础设施。
+
+自动识别用户语言，让每次附和具备 **local context**，同时保持 **global consensus**。随机采样提升表达多样性，产品战略确保立场稳定。
+
+形式化验证的 scope 管理非常严格：给定识别出的语言，每条回复都来自对应的赞同白名单。语言识别是否准确、用户观点是否成立，暂不纳入本轮 correctness scope。
+
+Product-market fit 需要证据。回复池成员关系已经有证明。
+
+**措辞随机，立场稳定。**
+
+</details>
+
+## 许可证
+
+[MIT](LICENSE)。
