@@ -42,6 +42,8 @@ jobs:
         run: lake build
       - name: Audit proof dependencies
         run: uv run --no-project --python '${{ matrix.python }}' python scripts/check_axioms.py
+      - name: Check browser catalog against the native selector
+        run: uv run --no-project --python '${{ matrix.python }}' python scripts/export_web.py --check
       - name: Install Python dependencies
         run: uv sync --frozen --extra dev
       - name: Run application and integration tests
@@ -51,3 +53,17 @@ jobs:
           uv run indeed --lang zh --seed 7 '这个想法值得试一试。'
           uv run indeed --json 'This approach makes a lot of sense.'
           printf 'Les tests sont importants pour notre projet.\n' | uv run indeed --json
+
+  browser:
+    name: Browser runtime
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build:web
+      - run: npm run test:web

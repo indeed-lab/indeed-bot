@@ -1,0 +1,21 @@
+{
+  "name": "indeed-bot-browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A local browser frontend for Indeed Lab's multilingual agreement bot.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "build:web": "node web/build.mjs",
+    "test:web": "node --test tests/browser-engine.test.mjs"
+  },
+  "dependencies": {
+    "franc-min": "6.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

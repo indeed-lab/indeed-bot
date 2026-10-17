@@ -20,6 +20,8 @@ Python handles language detection, random draws, the CLI, and process communicat
 
 Only the selected locale and draw belong in the core protocol. The frontend does not need to send the user's text to Lean or persist prompts.
 
+The browser edition consumes `web/replies.generated.js`, generated from the compiled Lean selector. Do not edit that file's phrases by hand. After changing the Lean catalog, rebuild the core and run `python scripts/export_web.py`; check the result with `--check`. Browser detection and sampling are ordinary JavaScript outside the Lean proof boundary. See [web/README.md](web/README.md) for the export contract.
+
 The proved contract covers membership in the selected locale's pool, nonempty replies, and deterministic selection for a fixed locale and draw. Changes to language detection or random sampling need ordinary tests. Avoid describing them as formally verified unless the proof boundary actually changes.
 
 ## Change a reply or add a language
@@ -40,6 +42,10 @@ The proof establishes membership in a pool. Reviewers still need to check that i
 (cd lean && lake build)
 uv run pytest
 uv run python scripts/check_axioms.py
+uv run python scripts/export_web.py --check
+npm ci
+npm run build:web
+npm run test:web
 ```
 
 Run the checks that exercise your change. A change to Lean code or reply pools requires a fresh core build before integration tests. The audit script invokes `lake env lean Audit.lean` and checks all six documented theorem audits. Inspect its output when modifying proofs; do not introduce `sorry`, unproved axioms, or an alternative unchecked selector to make a build pass. The [proof reference](lean/README.md) describes the current axiom dependencies.
