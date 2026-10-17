@@ -1,4 +1,4 @@
-![indeed-bot — Zero Reasoning. Infinite Agreement.](assets/hero.svg)
+![indeed-bot — Zero Reasoning. Infinite Agreement.](assets/hero-proof.svg)
 
 [![CI](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml)
 [![Lean 4.35.0](https://img.shields.io/badge/Lean-4.35.0-476582)](lean/lean-toolchain)
