@@ -1,5 +1,6 @@
 ![indeed-bot — Zero Reasoning. Infinite Agreement.](assets/hero-proof.svg)
 
+[![Try indeed-bot online](https://img.shields.io/badge/Try-indeed--bot-25483B)](https://indeed-lab.github.io/#indeed-bot)
 [![CI](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml)
 [![Lean 4.35.0](https://img.shields.io/badge/Lean-4.35.0-476582)](lean/lean-toolchain)
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-476582)](pyproject.toml)
