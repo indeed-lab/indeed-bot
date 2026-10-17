@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="title desc">
   <title id="title">indeed-bot — Zero Reasoning. Infinite Agreement.</title>
-  <desc id="desc">An Indeed Lab project. A multilingual agreement bot with a Lean-verified response selector. A terminal replies 确实 to a Chinese prompt.</desc>
+  <desc id="desc">An Indeed Lab project, featuring the lab's proof-square mark. A multilingual agreement bot with a Lean-verified response selector. A terminal replies 确实 to a Chinese prompt.</desc>
   <rect width="1280" height="420" rx="16" fill="#eff1e9"/>
   <path d="M0 340H1280M1040 0V420M1120 0V420M1200 0V420M960 0V420" stroke="#dfe5d7" stroke-width="1"/>
-  <rect x="48" y="42" width="28" height="28" rx="7" fill="#25483b"/>
-  <path d="m55 56 5 5 9-11" fill="none" stroke="#e8f3cb" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-  <text x="90" y="62" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#25483b">INDEED LAB</text>
+  <svg x="48" y="30" width="56" height="56" viewBox="0 0 240 240" aria-hidden="true">
+    <path fill="#25483B" d="M0 64 H128 V112 H176 V240 H0 Z"/>
+    <rect fill="#809B60" x="176" y="0" width="64" height="64"/>
+  </svg>
+  <text x="120" y="65" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2" fill="#25483B">INDEED LAB</text>
   <text x="48" y="176" font-family="Arial, Helvetica, sans-serif" font-size="78" font-weight="700" letter-spacing="-4" fill="#172e25">indeed-bot<tspan fill="#809b60">.</tspan></text>
   <text x="51" y="221" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#486152">Zero Reasoning.</text>
   <text x="51" y="252" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#486152">Infinite Agreement.</text>
