@@ -1,4 +1,4 @@
-![indeed-bot — Stochastic wording. Deterministic agreement.](assets/hero.svg)
+![indeed-bot — Zero Reasoning. Infinite Agreement.](assets/hero.svg)
 
 [![CI](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml)
 [![Lean 4.35.0](https://img.shields.io/badge/Lean-4.35.0-476582)](lean/lean-toolchain)
@@ -9,7 +9,9 @@
 
 # indeed-bot
 
-**Stochastic wording. Deterministic agreement.**
+**Zero Reasoning. Infinite Agreement.**
+
+We’re building the future of human interaction. 🚀
 
 An offline, multilingual agreement bot with a Lean-verified reply selector. It detects the language of your input, samples a reply from that language's finite pool, and agrees. The phrasing varies. The position is remarkably consistent.
 
@@ -138,21 +140,6 @@ uv run python scripts/check_axioms.py
 ```
 
 The Lean build checks the proofs and builds the executable. The audit reports each documented theorem's axiom dependencies and rejects missing audits, admitted proofs, or nonstandard axioms. Python tests exercise the frontend and its integration with the compiled core. See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution workflow.
-
-<details>
-<summary>A brief note on our market positioning</summary>
-
-We are building **Indeed-as-a-Service**, an agreement layer for statements that have already survived being typed.
-
-Multilingual support provides **local context** while preserving **global consensus**. Random sampling diversifies expression without exposing the product to strategic disagreement.
-
-Our formal-verification scope is tightly managed: given a selected locale, every reply belongs to its approved agreement pool. Whether the locale was correctly detected, or the user has a point, remains outside the current correctness scope.
-
-Product-market fit requires evidence. Pool membership has a proof.
-
-**Stochastic wording. Deterministic agreement.**
-
-</details>
 
 ## License
 

@@ -15,7 +15,7 @@ from .detection import SUPPORTED_LANGUAGES
 def _parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="indeed",
-        description="Stochastic wording. Deterministic agreement. All local, with a Lean-verified response core.",
+        description="Zero Reasoning. Infinite Agreement. All local, with a Lean-verified response core.",
     )
     parser.add_argument("text", nargs="?", help="Text to agree with; reads stdin if omitted and piped.")
     parser.add_argument("--lang", choices=["auto", *SUPPORTED_LANGUAGES], default="auto", help="Response language (default: auto).")

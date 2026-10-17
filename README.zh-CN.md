@@ -1,4 +1,4 @@
-![indeed-bot — Stochastic wording. Deterministic agreement.](assets/hero.svg)
+![indeed-bot — Zero Reasoning. Infinite Agreement.](assets/hero.svg)
 
 [![CI](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/indeed-lab/indeed-bot/actions/workflows/ci.yml)
 [![Lean 4.35.0](https://img.shields.io/badge/Lean-4.35.0-476582)](lean/lean-toolchain)
@@ -9,9 +9,9 @@
 
 # indeed-bot
 
-**Stochastic wording. Deterministic agreement.**
+**Zero Reasoning. Infinite Agreement.**
 
-**措辞随机，立场稳定。**
+We’re building the future of human interaction. 🚀
 
 一个离线运行、支持多语言的赞同机器人，回复选择逻辑经过 Lean 形式化验证。它识别输入的语言，从对应语言的有限回复池中抽取一句，然后表示赞同。表达可以变化，立场保持稳定。
 
@@ -140,21 +140,6 @@ uv run python scripts/check_axioms.py
 ```
 
 Lean 构建会检查证明并生成可执行文件。审计命令列出各个定理的公理依赖，并拒绝缺失的审计、跳过证明的占位符或非标准公理。Python 测试覆盖前端及其与编译后核心程序的集成。贡献流程见 [CONTRIBUTING.md](CONTRIBUTING.md)。
-
-<details>
-<summary>关于我们的市场定位</summary>
-
-我们正在构建 **Indeed-as-a-Service**，为所有已经成功打出来的观点提供赞同基础设施。
-
-自动识别用户语言，让每次附和具备 **local context**，同时保持 **global consensus**。随机采样提升表达多样性，产品战略确保立场稳定。
-
-形式化验证的 scope 管理非常严格：给定识别出的语言，每条回复都来自对应的赞同白名单。语言识别是否准确、用户观点是否成立，暂不纳入本轮 correctness scope。
-
-Product-market fit 需要证据。回复池成员关系已经有证明。
-
-**措辞随机，立场稳定。**
-
-</details>
 
 ## 许可证
 
